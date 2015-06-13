@@ -11,10 +11,17 @@
 		<input type="submit" value="post" name="post">
 	</form>
 
+@else
+	@if(!Auth::user()->following_user($user))
+		<a class='.ajax_buttonF' href="/user/follow/{{$user->id}}">FOLLOW</a>
+	@else
+		<a class='.ajax_buttonU' href="/user/unfollow/{{$user->id}}">UNFOLLOW</a>
+	@endif
 @endif
 
 @foreach ($user->tweets as $tweet)
 	<p>{{$tweet->tweet}}</p>
 @endforeach
 
+	
 @stop
