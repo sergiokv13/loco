@@ -47,22 +47,22 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
 	public function unfollow($user)
 	{
-		$this->following()->where('user_id2' , '=', $user->id)->first()->delete();
+		$this->following()->where('user_id2' , $user->id)->first()->delete();
 	}
 
 	public function followers()
 	{
-		return Follow::where('user_id2' , '=', $this->id);
+		return Follow::where('user_id2' ,$this->id);
 	}
 
 	public function following()
 	{
-		return Follow::where('user_id1' , '=', $this->id);
+		return Follow::where('user_id1' , $this->id);
 	}
 
 	public function following_user($user)
 	{
-		return $this->following()->where('user_id2' , '=', $user->id)->count() != 0;
+		return $this->following()->where('user_id2' ,  $user->id)->count() != 0;
 	}
 
 }

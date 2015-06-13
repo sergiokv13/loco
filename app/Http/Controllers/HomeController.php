@@ -1,5 +1,9 @@
 <?php namespace App\Http\Controllers;
 
+use App\Http\Controllers\Controller;
+use Auth;
+use App\User;
+
 class HomeController extends Controller {
 
 	/*
@@ -30,7 +34,20 @@ class HomeController extends Controller {
 	 */
 	public function index()
 	{
-		return view('home');
+		$tweets = Auth::user()->tweets;
+		foreach (Auth::user()->following() as $cuate)
+		{
+			foreach ($cuate->tweets as $tweet)
+			{
+				array_push($tweets, $tweet);
+			}
+		}
+
+		$data = array(
+		    'tweets'  => $tweets
+		);
+	
+		return view('home')->with($data);
 	}
 
 }
